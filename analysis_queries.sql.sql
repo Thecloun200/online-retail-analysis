@@ -35,4 +35,40 @@ WHERE Quantity > 0 AND UnitPrice > 0
 GROUP BY Country
 ORDER BY total_sales DESC;
 
+/* ===============================
+    Top customers in purchase 
+================================== */
+
+select CustomerID ,sum(Quantity*UnitPrice) as totalPurchase
+from online_retail
+where Quantity>0 And UnitPrice>0 AND CustomerID IS NOT NULL
+group by CustomerID
+order by totalPurchase Desc ;
+
+
+/* ===============================
+    Monthly Sales Trend
+================================== */
+SELECT 
+    YEAR(InvoiceDate) AS year,
+    MONTH(InvoiceDate) AS month,
+    SUM(Quantity * UnitPrice) AS monthly_sales
+FROM online_retail
+WHERE Quantity > 0 AND UnitPrice > 0
+GROUP BY YEAR(InvoiceDate), MONTH(InvoiceDate)
+ORDER BY monthly_sales DEsc;
+
+ /* ===============================
+    10 top products in revenue
+================================== */
+
+SELECT top 10 Description,
+       SUM(Quantity * UnitPrice) AS product_revenue
+FROM online_retail
+WHERE Quantity > 0 AND UnitPrice > 0
+GROUP BY Description
+ORDER BY product_revenue DESC;
+
+
+
 
